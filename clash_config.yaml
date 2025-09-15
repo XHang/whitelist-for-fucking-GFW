@@ -1,4 +1,19 @@
-﻿rules:
+﻿port: 7890           # Local HTTP proxy port
+socks-port: 7891     # Local SOCKS5 proxy port
+allow-lan: true
+mode: rule           # Options: global, rule, direct
+log-level: info
+
+proxies:
+  - name: "Proxy"
+    type: socks5        # Change to socks5 if needed
+    server: 127.0.0.1
+    port: 1080
+
+rules:
+  - DOMAIN-KEYWORD,tencent,DIRECT
+  - DOMAIN-KEYWORD,grammarly,DIRECT
+  - DOMAIN-KEYWORD,weixin,DIRECT
   - DOMAIN-SUFFIX,amiba.fun,DIRECT
   - DOMAIN-SUFFIX,0001688.com,DIRECT
   - DOMAIN-SUFFIX,001cndc.com,DIRECT
