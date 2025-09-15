@@ -1,0 +1,18 @@
+port: 7890           # Local HTTP proxy port
+socks-port: 7891     # Local SOCKS5 proxy port
+allow-lan: true
+mode: rule           # Options: global, rule, direct
+log-level: info
+
+proxies:
+  - name: "Proxy"
+    type: socks5        # Change to socks5 if needed
+    server: 127.0.0.1
+    port: 1080
+
+rules:
+  - DOMAIN-SUFFIX,google.com,Proxy
+  - DOMAIN-SUFFIX,youtube.com,Proxy
+  - DOMAIN-SUFFIX,facebook.com,Proxy
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy

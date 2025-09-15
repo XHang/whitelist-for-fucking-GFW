@@ -9,7 +9,7 @@ if (-Not (Test-Path $pacFile)) {
 
 # Get current script directory
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$outputFile = Join-Path $scriptDir "clash_rules.txt"
+$outputFile = Join-Path $scriptDir "clash_config.yaml"
 
 # Read PAC file content
 $pacContent = Get-Content $pacFile -Raw
@@ -23,9 +23,10 @@ $block = $pacContent.Substring($start, $end - $start + 2)
 $pattern = '"?(\w+)"?\s*:\s*{\s*([^}]*)\s*}'
 $matches = [regex]::Matches($block, $pattern)
 
-$rules = @()
+$domainList = @()
 
 foreach ($match in $matches) {
+    $tld = $match.Groups[1].Value
     $entries = $match.Groups[2].Value
 
     $entryPattern = '"?([\w\-\.]*)"?\s*:\s*1'
@@ -34,16 +35,25 @@ foreach ($match in $matches) {
     foreach ($entry in $entryMatches) {
         $sub = $entry.Groups[1].Value
         if ($sub -ne "") {
-            $rules += "DOMAIN:$sub,DIRECT"
+            $fullDomain = "$sub.$tld"
+            $domainList += $fullDomain
         }
     }
 }
 
-# Add fallback rule
-$rules += "MATCH,PROXY"
+# Remove duplicates and sort
+$domainList = $domainList | Sort-Object -Unique
+
+# Build YAML content using DOMAIN-SUFFIX
+$yaml = @()
+$yaml += "rules:"
+foreach ($domain in $domainList) {
+    $yaml += "  - DOMAIN-SUFFIX,$domain,DIRECT"
+}
+$yaml += "  - MATCH,Proxy"  # Make sure 'Proxy' is a valid proxy group in your config
 
 # Save to output file
-$rules | Sort-Object -Unique | Set-Content $outputFile -Encoding UTF8
+$yaml | Set-Content $outputFile -Encoding UTF8
 
-Write-Host "`n✅ Clash rules generated with suffixes removed!"
+Write-Host "`n✅ Clash YAML config with DOMAIN-SUFFIX rules generated!"
 Write-Host "📄 Saved to: $outputFile" -ForegroundColor Green
