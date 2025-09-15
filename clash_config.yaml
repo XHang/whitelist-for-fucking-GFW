@@ -11,6 +11,7 @@ proxies:
     port: 1080
 
 rules:
+  - DOMAIN-KEYWORD,amoeba,DIRECT
   - DOMAIN-KEYWORD,tencent,DIRECT
   - DOMAIN-KEYWORD,grammarly,DIRECT
   - DOMAIN-KEYWORD,weixin,DIRECT
