@@ -11,10 +11,21 @@ proxies:
     port: 1080
 
 rules:
+  - IP-CIDR,101.227.132.63/32,DIRECT,no-resolve
+  - IP-CIDR,101.227.131.167/32,DIRECT,no-resolve
+  - DOMAIN-KEYWORD,dingtalk,DIRECT
   - DOMAIN-KEYWORD,amoeba,DIRECT
   - DOMAIN-KEYWORD,tencent,DIRECT
   - DOMAIN-KEYWORD,grammarly,DIRECT
   - DOMAIN-KEYWORD,weixin,DIRECT
+  - DOMAIN-SUFFIX,resource.17.shop,DIRECT     
+  - DOMAIN-SUFFIX,deepseek.com,DIRECT          
+  - DOMAIN-SUFFIX,pp.17.shop,DIRECT        
+  - DOMAIN-SUFFIX,img.17.shop,DIRECT     
+  - DOMAIN-SUFFIX,a.nel.cloudflare.com,DIRECT     
+  - DOMAIN-SUFFIX,ruanyifeng.com,DIRECT    
+  - DOMAIN-SUFFIX,cn,DIRECT    
+  - DOMAIN-SUFFIX,tool.lu,DIRECT  
   - DOMAIN-SUFFIX,amiba.fun,DIRECT
   - DOMAIN-SUFFIX,0001688.com,DIRECT
   - DOMAIN-SUFFIX,001cndc.com,DIRECT
@@ -6035,7 +6046,6 @@ rules:
   - DOMAIN-SUFFIX,miaozhen.com,DIRECT
   - DOMAIN-SUFFIX,micamika.com,DIRECT
   - DOMAIN-SUFFIX,microad-cn.com,DIRECT
-  - DOMAIN-SUFFIX,microsoft.com,DIRECT
   - DOMAIN-SUFFIX,midea.com,DIRECT
   - DOMAIN-SUFFIX,miercn.com,DIRECT
   - DOMAIN-SUFFIX,miit.cc,DIRECT
