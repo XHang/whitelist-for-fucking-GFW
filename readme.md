@@ -24,7 +24,6 @@ fetch GFW blacklist from a URL and convert it to the config for Clash Berge
 
 # gfwlist_clash_rules.yaml
 The output blacklist config for Clash Berge.
-I added extra rules to it so if you execute `blacklist.ps1`, the changes will be lost
 
 # problems
 
